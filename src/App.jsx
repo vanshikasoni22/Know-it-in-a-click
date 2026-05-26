@@ -20,6 +20,7 @@ export default function App() {
 
   // Central explain handler (supports direct invocation from example clicks too)
   async function handleExplain(targetUrl) {
+    const API_URL = import.meta.env.VITE_API_URL || '/webhook/explain'
     const activeUrl = targetUrl || repoUrl
     if (!activeUrl) return
 
@@ -41,7 +42,7 @@ export default function App() {
     setLoading(true)
 
     try {
-      const res = await fetch('/webhook/explain', {
+      const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ repo_url: cleanUrl })
